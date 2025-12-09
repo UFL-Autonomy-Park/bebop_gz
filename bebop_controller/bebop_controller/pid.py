@@ -16,7 +16,7 @@ class PID:
         self.previous_error = 0.0
         self.integrator = 0.0
         self.dt = dt
-        self.debug = debug  # Nuevo flag para depuración
+        self.debug = debug  
 
         if self.debug:
             self.node.get_logger().info(
@@ -31,14 +31,14 @@ class PID:
     def update(self, current_value, setpoint):
         error = setpoint - current_value
         
-        # Protección contra división por cero en la derivada
+        # Guard against division by zero in derivative calc
         derivative = (error - self.previous_error) / self.dt if self.dt > 1e-6 else 0.0
 
-        # Actualizar el integrador con saturación
+        # Update integrator with saturation 
         self.integrator += error * self.dt
         self.integrator = np.clip(self.integrator, self.integrator_min, self.integrator_max)
 
-        # Calcular salida del PID
+        # Calculate PID output
         output = (self.kp * error) + (self.kd * derivative) + (self.ki * self.integrator)
         output = np.clip(output, self.min_output, self.max_output)
 
