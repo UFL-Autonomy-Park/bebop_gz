@@ -1,8 +1,0 @@
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/SetPosePlugin.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/RobotPosePublisher.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/edit_cache.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/rebuild_cache.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/list_install_components.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/install.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/install/local.dir
-/home/brayan/gz_bebop_ws/src/bebop_gz/bebop_gz/plugins/build/CMakeFiles/install/strip.dir
