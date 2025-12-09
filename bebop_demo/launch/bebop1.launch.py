@@ -6,13 +6,13 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
-    # Obtener rutas de los paquetes
+    # Get package dirs
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
     pkg_ros_gz_sim_demos = get_package_share_directory('bebop_demo')
 
-    # Definir nombres de robots y condiciones iniciales como cadenas JSON
-    robot_names = '["bebop1"]'  # Cadena JSON
-    initial_conditions = '[[2.5, -0.5, 0.0, 1.0]]'  # Cadena JSON
+    # Bebop names and initial conditions as JSON strings
+    robot_names = '["bebop1"]'  
+    initial_conditions = '[[2.5, -0.5, 0.0, 1.0]]' 
     lider = 'bebop1'
 
     State = ExecuteProcess(
@@ -20,7 +20,7 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Lanzar Gazebo
+    # Launch Gazebo
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
@@ -29,7 +29,7 @@ def generate_launch_description():
             'gz_args': '-r -z  1000000 bebop1.sdf'
         }.items(),
     )
-    # Lanzar el puente ROS-Gazebo
+    # Launch ROS-Gazebo bridge
     ros_gz_bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -41,7 +41,7 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Lanzar el nodo de setpoint
+    # Launch setpoint node
     setpoint = ExecuteProcess(
         cmd=[
             'ros2', 'run', 'bebop_demo', 'setpoint',
@@ -54,7 +54,7 @@ def generate_launch_description():
     )
 
 
-    # Lanzar el nodo MultiRobotPosePublisher
+    # Launch multi-robot pose publisher to set initial positions
     set_pose = Node(
         package='bebop_demo',
         executable='set_pose', 
@@ -66,7 +66,7 @@ def generate_launch_description():
         ]
     )
 
-    # Lanzar el controlador PID
+    # Launch PID controller 
     controller = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory('bebop_controller'), 'launch', 'pid.launch.py')
