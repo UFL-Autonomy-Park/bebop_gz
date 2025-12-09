@@ -1,7 +1,6 @@
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, ExecuteProcess
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from ros_gz_bridge.actions import RosGzBridge
 from launch_ros.actions import Node
 import os
 from ament_index_python.packages import get_package_share_directory
@@ -31,9 +30,15 @@ def generate_launch_description():
         }.items(),
     )
     # Lanzar el puente ROS-Gazebo
-    ros_gz_bridge = RosGzBridge(
-        bridge_name='ros_gz_bridge',
-        config_file=os.path.join(pkg_ros_gz_sim_demos, 'config', 'bebop1.yaml'),
+    ros_gz_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='ros_gz_bridge',
+        arguments=[
+            '--ros-args',
+            '-p', f'config_file:={os.path.join(pkg_ros_gz_sim_demos, "config", "bebop1.yaml")}'
+        ],
+        output='screen'
     )
 
     # Lanzar el nodo de setpoint
